@@ -31,7 +31,7 @@ require 'date'
 class Sprint < Version
   scope :open_sprints, lambda { |project|
     where(["versions.status = 'open' and versions.project_id = ?", project.id])
-      .order(Arel.sql("COALESCE(start_date, CAST('4000-12-30' as date)) ASC, COALESCE(effective_date, CAST('4000-12-30' as date)) ASC"))
+      .order(Arel.sql("start_date DESC NULLS LAST, effective_date DESC NULLS LAST"))
   }
 
   # null last ordering
